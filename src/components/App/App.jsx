@@ -6,13 +6,16 @@ import { PitcherTotal } from './PitcherTotal';
 import { CatcherTotal } from './CatcherTotal';
 import { PitcherOnMound } from './PitcherOnMound';
 import { PitcherForm } from './PitcherForm';
+import { CatcherForm } from './CatcherForm';
+import { PitcherList } from './PitcherList';
+import { CatcherList } from './CatcherList';
+import { CatcherOnMound } from './CatcherOnMound';
 
 function App() {
   // setting up dispatch, to use like action walkie talkie
   const dispatch = useDispatch();
 
-  // local state stuff
-  const [newCatcher, setNewCatcher] = useState('');
+  // local state stuff - STILL NEED TO MOVE TO GLOBAL STATE
   const [currentPitcher, setCurrentPitcher] = useState('Maud Nelson');
   const [currentCatcher, setCurrentCatcher] = useState('Elston Howard');
 
@@ -50,57 +53,28 @@ function App() {
 
   // redux version of handlers
 
-  const handleCatcherSubmit = event => {
-    event.preventDefault();
-    console.log("inside handleCatcherSubmit()", newCatcher)
-    dispatch({
-      type: 'ADD_CATCHER',
-      payload: newCatcher
-    })
-  }
-
   return (
     <div>
       <h1>Redux Baseball Pitchers</h1>
-      <PitcherOnMound currentPitcher={currentPitcher} />
-      <h2>Behind the Plate: {currentCatcher}</h2>
+      <PitcherOnMound />
+      <CatcherOnMound />
       <PitcherTotal />
       <CatcherTotal />
       <h3>All Pitchers</h3>
       <PitcherForm />
-      <ul>
-        {pitcherList.map((pitcher, index) => (
-          <li key={index}
-            onClick={() => setCurrentPitcher(pitcher)}
-          >
-            {pitcher}
-          </li>
-        ))}
-      </ul>
+      <PitcherList />
       <h3>All Catchers</h3>
-      <form onSubmit={handleCatcherSubmit}>
-        <input
-          type="text"
-          value={newCatcher}
-          onChange={event => setNewCatcher(event.target.value)}
-          placeholder="New Catcher Name"
-        />
-        <button type="submit">Add Catcher</button>
-      </form>
-      <ul>
-        {catcherList.map((catcher, index) => (
-          <li key={index}
-            onClick={() => setCurrentCatcher(catcher)}
-          >
-            {catcher}
-          </li>
-        ))}
-      </ul>
+      <CatcherForm />
+      <CatcherList />
     </div>
   );
 }
 
 export default App;
+
+
+
+
 
 
 

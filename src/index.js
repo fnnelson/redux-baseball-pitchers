@@ -30,9 +30,9 @@ const baseballStore = createStore(combineReducers({
     catcherList
 }),
     // to log before/after state and action type in console
-    applyMiddleware(
-        logger
-    )
+    // applyMiddleware(
+    //     logger
+    // )
 )
 
 
