@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PitcherTotal } from './PitcherTotal';
 import { CatcherTotal } from './CatcherTotal';
+import { PitcherOnMound } from './PitcherOnMound';
+import { PitcherForm } from './PitcherForm';
 
 function App() {
   // setting up dispatch, to use like action walkie talkie
   const dispatch = useDispatch();
 
   // local state stuff
-  const [newPitcher, setNewPitcher] = useState('');
   const [newCatcher, setNewCatcher] = useState('');
   const [currentPitcher, setCurrentPitcher] = useState('Maud Nelson');
   const [currentCatcher, setCurrentCatcher] = useState('Elston Howard');
@@ -48,14 +49,6 @@ function App() {
   // };
 
   // redux version of handlers
-  const handlePitcherSubmit = event => {
-    event.preventDefault();
-    console.log("inside handlePitcherSubmit()", newPitcher)
-    dispatch({
-      type: 'ADD_PITCHER',
-      payload: newPitcher
-    })
-  }
 
   const handleCatcherSubmit = event => {
     event.preventDefault();
@@ -69,20 +62,12 @@ function App() {
   return (
     <div>
       <h1>Redux Baseball Pitchers</h1>
-      <h2>On the Mound: {currentPitcher}</h2>
+      <PitcherOnMound currentPitcher={currentPitcher} />
       <h2>Behind the Plate: {currentCatcher}</h2>
       <PitcherTotal />
       <CatcherTotal />
       <h3>All Pitchers</h3>
-      <form onSubmit={handlePitcherSubmit}>
-        <input
-          type="text"
-          value={newPitcher}
-          onChange={event => setNewPitcher(event.target.value)}
-          placeholder="New Pitcher Name"
-        />
-        <button type="submit">Add Pitcher</button>
-      </form>
+      <PitcherForm />
       <ul>
         {pitcherList.map((pitcher, index) => (
           <li key={index}
@@ -116,4 +101,6 @@ function App() {
 }
 
 export default App;
+
+
 
